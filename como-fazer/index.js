@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
-const axios = require('axios');
 const bodyParser = require('body-parser');
+
+const api = require('./api');
 
 const port = process.env.PORT || 3000;
 
@@ -14,31 +15,35 @@ app.get('/', async (req, res) => {
 });
 
 app.get('/categorias', async (req, res) => {
-  const content = await axios.get('https://fsl-como-fazer.firebaseio.com/categorias.json');
-  if (content.data) {
-    const categorias = Object.keys(content.data)
-      .map((key) => {
-        return {
-          id: key, ...content.data[key]
-        }
-      })
-    res.render('categorias/index', { categorias });
-  } else {
-    res.render('categorias/index', { categorias: [] });
-  }
+  const categorias = await api.list('categorias');
+  res.render('categorias/index', { categorias })
+});
+
+app.get('/categorias/excluir/:id', async (req, res) => {
+  await api.remove('categorias', req.params.id);
+  res.redirect('/categorias');
 });
 
 app.get('/categorias/nova', (req, res) => {
   res.render('categorias/nova');
 });
 
-app.get('/categorias/excluir/:id', async (req, res) => {
-  await axios.delete(`https://fsl-como-fazer.firebaseio.com/categorias/${req.params.id}.json`);
+app.post('/categorias/nova', async (req, res) => {
+  await api.create('categorias', {
+    categoria: req.body.categoria
+  });
   res.redirect('/categorias');
 });
 
-app.post('/categorias/nova', async (req, res) => {
-  await axios.post('https://fsl-como-fazer.firebaseio.com/categorias.json', {
+app.get('/categorias/editar/:id', async (req, res) => {
+  const categoria = await api.get('categorias', req.params.id);
+  res.render('categorias/editar', {
+    categoria
+  });
+});
+
+app.post('/categorias/editar/:id', async (req, res) => {
+  await api.update('categorias', req.params.id, {
     categoria: req.body.categoria
   });
   res.redirect('/categorias');
