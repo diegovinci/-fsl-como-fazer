@@ -1,0 +1,6 @@
+<a href="/categories/create">Nova categoria</a><br>
+<% categories.forEach((category) => { %>
+  <%= category.category %>
+  <a href="/categories/update/<%= category.id %>">Editar</a>
+  <a href="/categories/remove/<%= category.id %>">Excluir</a><br>
+<% }); %>
