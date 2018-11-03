@@ -1,0 +1,16 @@
+<%- include('../header') %>
+<div class="container">
+  <h2>Editar Artigo</h2>
+  <form method="POST" action="/articles/update/<%= category %>/<%= article.id %>">
+    <div class="form-group">
+      <label for="category">Título</label>
+      <input class="form-control" type="text" name="title" value="<%= article.title %>" placeholder="Insira o título" />
+    </div>
+    <div class="form-group">
+      <label for="category">Conteúdo</label>
+      <textarea class="form-control" id="content" name="content" placeholder="Insira a conteúdo do artigo"><%= article.content %></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+  </form>
+</div>
+<%- include('../footer') %>

@@ -3,16 +3,17 @@ const app = express();
 const bodyParser = require('body-parser');
 
 const categories = require('./routes/categories');
+const articles = require('./routes/articles');
 
 const port = process.env.PORT || 3000;
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded());
 app.use('/categories', categories);
+app.use('/articles', articles);
 
 app.get('/', async (req, res) => {
-  const content = await axios.get('https://fsl-como-fazer.firebaseio.com/teste.json');
-  res.render('index', { content: content.data });
+  res.render('index');
 });
 
 app.listen(3000, (err) => {

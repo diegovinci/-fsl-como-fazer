@@ -1,6 +1,11 @@
+<%- include('../header') %>
+<div class="container">
+  <h2>Editar Categoria</h2>
 <form method="POST" action="/categories/update/<%= category.id %>">
-  Categoria:<br>
-  <input type="text" name="category" value="<%= category.category %>" placeholder="Insira o nome da category" />
-  <br><br>
-  <button>Salvar</button>
+  <div class="form-group">
+    <label for="category">Categoria</label>
+    <input class="form-control" type="text" id="category" name="category" value="<%= category.category %>" placeholder="Insira a categoria" />
+  </div>
+  <button type="submit" class="btn btn-primary">Salvar</button>
 </form>
+<%- include('../footer') %>

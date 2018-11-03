@@ -1,8 +1,11 @@
 const axios = require('axios');
+
 const baseURL = 'https://fsl-como-fazer.firebaseio.com';
+const secret = 'xthayvJWmwr0ctGYfw8NlirJxm08SpQcHlpR9frH';
+const authParam = `?auth=${secret}`;
 
 const list = async (key) => {
-  const content = await axios.get(`${baseURL}/${key}.json`);
+  const content = await axios.get(`${baseURL}/${key}.json${authParam}`);
   if (content.data) {
     const objetos = Object.keys(content.data)
       .map((key) => {
@@ -17,12 +20,12 @@ const list = async (key) => {
 }
 
 const remove = async (key, id) => {
-  await axios.delete(`${baseURL}/${key}/${id}.json`);
+  await axios.delete(`${baseURL}/${key}/${id}.json${authParam}`);
   return true
 }
 
 const get = async (key, id) => {
-  const content = await axios.get(`${baseURL}/${key}/${id}.json`);
+  const content = await axios.get(`${baseURL}/${key}/${id}.json${authParam}`);
   return {
     id: id,
     ...content.data
@@ -30,12 +33,12 @@ const get = async (key, id) => {
 }
 
 const update = async (key, id, data) => {
-  await axios.put(`${baseURL}/${key}/${id}.json`, data);
+  await axios.put(`${baseURL}/${key}/${id}.json${authParam}`, data);
   return true;
 }
 
 const create = async (key, data) => {
-  await axios.post(`${baseURL}/${key}.json`, data);
+  await axios.post(`${baseURL}/${key}.json${authParam}`, data);
   return true;
 }
 

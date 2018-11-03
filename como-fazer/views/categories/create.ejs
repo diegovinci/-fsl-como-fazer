@@ -1,6 +1,12 @@
-<form method="POST" action="/categories/create">
-  Categoria:<br>
-  <input type="text" name="category" placeholder="Insira o nome da categoria" />
-  <br><br>
-  <button>Salvar</button>
-</form>
+<%- include('../header') %>
+<div class="container">
+  <h2>Nova Categoria</h2>
+  <form method="POST" action="/categories/create">
+    <div class="form-group">
+      <label for="category">Categoria</label>
+      <input class="form-control" type="text" id="category" name="category" placeholder="Insira o nome da categoria" />
+    </div>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+  </form>
+</div>
+<%- include('../footer') %>

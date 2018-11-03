@@ -1,4 +1,4 @@
-const service = require('../services/categories')
+const service = require('../services')
 
 const createForm = (req, res) => {
   res.render('categories/create');
@@ -18,6 +18,7 @@ const list = async (req, res) => {
 
 const remove = async (req, res) => {
   await service.remove('categories', req.params.id);
+  await service.remove('articles', req.params.id);
   res.redirect('/categories');
 }
 
